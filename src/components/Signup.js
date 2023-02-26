@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const Signup = () => {
   const emailRef = useRef();
@@ -47,26 +48,37 @@ const Signup = () => {
   };
 
   return (
+    <div className='container'>
+    
     <Form onSubmit={handleSubmit} className="container mt-3">
+  <h1 className='text-center'>Signup</h1>
+  <Form.Group controlId="email">
+    <Form.Label>Email</Form.Label>
+    <Form.Control type="email" ref={emailRef} required />
+  </Form.Group>
 
-        <h1 className='text-center'>Signup</h1>
-      <Form.Group controlId="email">
-        <Form.Label>Email</Form.Label>
-        <Form.Control type="email" ref={emailRef} required />
-      </Form.Group>
+  <Form.Group controlId="password">
+    <Form.Label>Password</Form.Label>
+    <Form.Control type="password" ref={passwordRef} required />
+  </Form.Group>
 
-      <Form.Group controlId="password">
-        <Form.Label>Password</Form.Label>
-        <Form.Control type="password" ref={passwordRef} required />
-      </Form.Group>
+  <Form.Group controlId="confirmPassword">
+    <Form.Label>Confirm Password</Form.Label>
+    <Form.Control type="password" ref={confirmPasswordRef} required />
+  </Form.Group>
 
-      <Form.Group controlId="confirmPassword">
-        <Form.Label>Confirm Password</Form.Label>
-        <Form.Control type="password" ref={confirmPasswordRef} required />
-      </Form.Group>
+  <div className="text-center">
+    <Button type="submit" className='mt-2'>Sign up</Button>
+  </div>
+</Form>
 
-      <Button type="submit">Sign up</Button>
-    </Form>
+
+    <p className='text-center'>
+        Already an account  <Link to='/login'>Sign In </Link>
+    </p>
+    </div>
+
+    
   );
 };
 
