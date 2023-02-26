@@ -10,6 +10,50 @@ const Login = () => {
   const loginIdRef = useRef(null);
   const passwordRef = useRef(null);
 
+  const ForgotPasswordHandler = ()=>{
+    alert("you may have received an email with reset link");
+     console.log(loginIdRef.current.value);
+
+     {
+      fetch(
+        "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyD5cdZzJcoEQqaDiHG5I-GVDtlb6TujDAo",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            requestType:"PASSWORD_RESET",
+            email: loginIdRef.current.value,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      ).then((res) => {
+        if (res.ok) {
+          console.log("Login succesfullly");
+          console.log(res);
+          return res.json();
+        } else {
+          return res.json().then((data) => {
+            console.log(data);
+            let errorMessage = "Email sent for reset password";
+            if (data && data.error && data.error.message) {
+              errorMessage = data.error.message;
+            }
+            throw new Error(errorMessage);
+          });
+        }
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
+    
+    }
+
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const loginId = loginIdRef.current.value;
@@ -100,6 +144,7 @@ const Login = () => {
         <Button type="submit" className="mt-2">
           Login
         </Button>
+        <p className="text-muted">Forgot password?? <span onClick={ForgotPasswordHandler} style={{textDecoration:"underline",cursor:"pointer"}}>Click Here</span></p>
       </div>
     </Form>
   );
