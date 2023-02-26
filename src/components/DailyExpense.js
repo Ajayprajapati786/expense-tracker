@@ -17,7 +17,7 @@ const DailyExpense = () => {
       category: categoryRef.current.value
     };
 
-// Here would be the code to send expense to server
+//Here would be the code to send expense to server
 
     setExpenses([...expenses, expense]); // Add new expense to the list
 
