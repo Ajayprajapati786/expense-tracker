@@ -59,13 +59,13 @@ const Login = () => {
         .then((data) => {
           console.log(data);
           authCtx.login(data.idToken);
-          const userProfileIncomplete = true;
+          // const userProfileIncomplete = true;
+          // if (userProfileIncomplete) {
+          //   alert("Your profile is incomplete. Please update your profile.");
+          //   history.push("/complete-profile");
+          // }
 
-          // If user profile is incomplete, show a message to the user
-          if (userProfileIncomplete) {
-            alert("Your profile is incomplete. Please update your profile.");
-            history.push("/complete-profile");
-          }
+          history.push("/verify-email");
         })
         .catch((err) => {
           alert(err.message);

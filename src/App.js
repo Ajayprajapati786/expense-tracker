@@ -6,6 +6,7 @@ import Completeprofile from "./components/Completeprofile";
 import AuthContext from "./components/AuthContext";
 import { useContext } from "react";
 import Home from "./components/Home";
+import Verify from "./components/Verify";
 function App() {
   const authCtx = useContext(AuthContext);
   return (
@@ -21,6 +22,10 @@ function App() {
 
         <Route path="/login">
           <Login/>
+        </Route>
+
+        <Route path="/verify-email">
+          <Verify/>
         </Route>
 
         <Route path="/home">
