@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 
 const CompleteProfile = () => {
@@ -12,6 +12,53 @@ const CompleteProfile = () => {
   const handlePhotoUrlChange = (event) => {
     setPhotoUrl((prevPhotoUrl) => event.target.value || prevPhotoUrl);
   };
+
+  useEffect(() => {
+    
+    {
+      fetch(
+        "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyD5cdZzJcoEQqaDiHG5I-GVDtlb6TujDAo",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            idToken: localStorage.getItem('token'),
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      ).then((res) => {
+        if (res.ok) {
+          console.log("Received the users details from the server");
+          // alert("Login succesful");
+          console.log(res);
+          return res.json();
+        } else {
+          return res.json().then((data) => {
+            console.log(data);
+            let errorMessage = "Updation failed filed!";
+            if (data && data.error && data.error.message) {
+              errorMessage = data.error.message;
+            }
+            throw new Error(errorMessage);
+          });
+        }
+      })
+      .then((data) => {
+        console.log(data.users[0].displayName);
+        console.log(data.users[0].photoUrl);
+        setFullName(data.users[0].displayName);
+        setPhotoUrl(data.users[0].photoUrl);
+        // console.log(data.displayName);
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
+    
+    }
+  
+  }, [])
+  
 
   const handleUpdate = () => {
     // Call Firebase API to update user details
