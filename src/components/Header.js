@@ -34,7 +34,7 @@ const Header = () => {
             <Nav.Link
               as={NavLink}
               activeClassName="active"
-              to="/home"
+              to="/login"
               onClick={logout}
             >
               Logout
