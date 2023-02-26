@@ -40,6 +40,12 @@ const Header = () => {
               Logout
             </Nav.Link>
           )}
+
+          {authCtx.isLoggedIn && (
+            <Nav.Link as={NavLink} activeClassName="active" to="/DailyExpense">
+              Daily expenses
+            </Nav.Link>
+          )}
         </Nav>
       </Navbar.Collapse>
     </Navbar>

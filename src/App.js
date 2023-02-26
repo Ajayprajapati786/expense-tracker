@@ -7,6 +7,7 @@ import AuthContext from "./components/AuthContext";
 import { useContext } from "react";
 import Home from "./components/Home";
 import Verify from "./components/Verify";
+import DailyExpense from "./components/DailyExpense";
 function App() {
   const authCtx = useContext(AuthContext);
   return (
@@ -30,6 +31,12 @@ function App() {
 
         <Route path="/home">
           <Home/>
+        </Route>
+
+
+        <Route path="/DailyExpense">
+          {authCtx.isLoggedIn &&<DailyExpense/>}
+          {!authCtx.isLoggedIn && <Redirect to="/home"/>}
         </Route>
 
         <Route path="/complete-profile">

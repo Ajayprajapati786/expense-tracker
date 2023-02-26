@@ -109,7 +109,8 @@ const Login = () => {
           //   history.push("/complete-profile");
           // }
 
-          history.push("/verify-email");
+          // history.push("/verify-email");
+          history.push("/DailyExpense");
         })
         .catch((err) => {
           alert(err.message);
