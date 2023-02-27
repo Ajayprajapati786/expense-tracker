@@ -8,7 +8,7 @@ const Verify = () => {
   const verifyEmail = () => {
     {
         fetch(
-          "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyD5cdZzJcoEQqaDiHG5I-GVDtlb6TujDAo",
+          "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyC5q-c3lCTS7DOC2LKP6IaEHLtIdVfTTwI",
           {
             method: "POST",
             body: JSON.stringify({

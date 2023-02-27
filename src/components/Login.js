@@ -16,7 +16,7 @@ const Login = () => {
 
      {
       fetch(
-        "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyD5cdZzJcoEQqaDiHG5I-GVDtlb6TujDAo",
+        "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyC5q-c3lCTS7DOC2LKP6IaEHLtIdVfTTwI",
         {
           method: "POST",
           body: JSON.stringify({
@@ -66,7 +66,7 @@ const Login = () => {
     } else {
       {
         fetch(
-          "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyD5cdZzJcoEQqaDiHG5I-GVDtlb6TujDAo",
+          "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyC5q-c3lCTS7DOC2LKP6IaEHLtIdVfTTwI",
           {
             method: "POST",
             body: JSON.stringify({
@@ -102,7 +102,8 @@ const Login = () => {
         })
         .then((data) => {
           console.log(data);
-          authCtx.login(data.idToken);
+          authCtx.login(data.idToken,data.email);
+
           // const userProfileIncomplete = true;
           // if (userProfileIncomplete) {
           //   alert("Your profile is incomplete. Please update your profile.");

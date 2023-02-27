@@ -17,7 +17,7 @@ const CompleteProfile = () => {
     
     {
       fetch(
-        "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyD5cdZzJcoEQqaDiHG5I-GVDtlb6TujDAo",
+        "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyC5q-c3lCTS7DOC2LKP6IaEHLtIdVfTTwI",
         {
           method: "POST",
           body: JSON.stringify({
@@ -70,7 +70,7 @@ const CompleteProfile = () => {
     } else {
       {
         fetch(
-          "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyD5cdZzJcoEQqaDiHG5I-GVDtlb6TujDAo",
+          "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyC5q-c3lCTS7DOC2LKP6IaEHLtIdVfTTwI",
           {
             method: "POST",
             body: JSON.stringify({

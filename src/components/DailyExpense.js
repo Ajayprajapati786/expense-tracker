@@ -1,12 +1,32 @@
 import React, { useState, useRef } from 'react';
 import { Form, Button, Table } from 'react-bootstrap';
+import axios from 'axios';
+import AuthContext from './AuthContext';
+import { useContext } from 'react';
 
 const DailyExpense = () => {
+
+  const authCtx = useContext(AuthContext);
+
+  const emailOfLoggedInUser = authCtx.userEmail;
+  const sanitizedEmail = emailOfLoggedInUser.replace(/[@.]/g, '');
+
+
+  const [expenses, setExpenses] = useState([]);
   const amountRef = useRef();
   const descriptionRef = useRef();
   const categoryRef = useRef();
+  const [receivedExpense,setReceivedExpenses] = useState([]);
 
-  const [expenses, setExpenses] = useState([]);
+  React.useEffect(() => {
+    axios.get(`https://expensetracker2-14ef8-default-rtdb.firebaseio.com/${sanitizedEmail}.json`).then((response) => {
+      if(response.data){
+        setReceivedExpenses(response.data);
+      }
+    });
+  }, [expenses]);
+
+  console.log(receivedExpense);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -17,10 +37,14 @@ const DailyExpense = () => {
       category: categoryRef.current.value
     };
 
-//Here would be the code to send expense to server
-
-    setExpenses([...expenses, expense]); // Add new expense to the list
-
+    axios.post(`https://expensetracker2-14ef8-default-rtdb.firebaseio.com/${sanitizedEmail}.json`, expense)
+      .then(response => {
+        console.log(response);
+        setExpenses([...expenses, expense]);
+      })
+      .catch(error => {
+        console.log(error);
+      });
 
     // Clear form fields
     amountRef.current.value = '';
@@ -31,6 +55,7 @@ const DailyExpense = () => {
   return (
     <div>
       <h2 className='text-center'>Daily Expense Tracker</h2>
+
       <Form onSubmit={handleSubmit} className="container">
         <Form.Group controlId="amount">
           <Form.Label>Amount:</Form.Label>
@@ -54,25 +79,31 @@ const DailyExpense = () => {
           <Button variant="primary" type="submit" className='mt-3'>Add Expense</Button>
         </div>
       </Form>
-      <h2 className='text-center mt-5'>Expenses</h2>
-      <Table striped bordered hover className='container'>
-        <thead>
-          <tr>
-            <th>Amount</th>
-            <th>Description</th>
-            <th>Category</th>
-          </tr>
-        </thead>
-        <tbody>
-          {expenses.map((expense, index) => (
-            <tr key={index}>
-              <td>{expense.amount}</td>
-              <td>{expense.description}</td>
-              <td>{expense.category}</td>
+
+      <div>
+        <h3 className='text-center'>Expenses of {emailOfLoggedInUser}</h3>
+        <Table striped bordered hover className='container'>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Amount</th>
+              <th>Description</th>
+              <th>Category</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+          {Object.keys(receivedExpense).map((key, index) => (
+              <tr key={key}>
+                <td>{index + 1}</td>
+                <td>{receivedExpense[key].amount}</td>
+                <td>{receivedExpense[key].description}</td>
+                <td>{receivedExpense[key].category}</td>
+                <td>{key}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
     </div>
   )
 }

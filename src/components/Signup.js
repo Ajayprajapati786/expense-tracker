@@ -17,7 +17,7 @@ const Signup = () => {
       alert('Password and confirm password must match');
     } else {
       console.log("succes!!")
-      fetch("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyD5cdZzJcoEQqaDiHG5I-GVDtlb6TujDAo",
+      fetch("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyC5q-c3lCTS7DOC2LKP6IaEHLtIdVfTTwI",
       {
         method:'POST',
         body: JSON.stringify({
